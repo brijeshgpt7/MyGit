@@ -1,0 +1,46 @@
+<%= form_for(@branch) do |f| %>
+  <% if @branch.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@branch.errors.count, "error") %> prohibited this branch from being saved:</h2>
+
+      <ul>
+      <% @branch.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <p>
+    Project <br />
+    <%= f.collection_select(:project_id,Profile.find(@profile).projects,:id,:pname)%>
+  </p>
+    <p>
+      Branch Name <br />
+    <%= f.text_field :branch_name %>
+  </p>
+   <p>
+      Description <br />
+    <%= f.text_area :description,:rows => "5" %>
+  </p>
+  <p>
+      File Path <br />
+    <%= f.text_field :file_path %>
+  </p>
+  <p>
+      Pushed to Master <br />
+    <%= f.select :master, [["Yes", true], ["No", false]], { :include_blank => true} %>
+  </p>
+  <p>
+      Pushed to Staging <br />
+    <%= f.select :staging, [["Yes", true], ["No", false]], { :include_blank => true} %>
+  </p>
+  <p>
+      Pushed to Master <br />
+    <%= f.select :production, [["Yes", true], ["No", false]], { :include_blank => true} %>
+  </p>
+
+    <%= f.submit "Add Branch" %>
+  </div>
+<% end %>
